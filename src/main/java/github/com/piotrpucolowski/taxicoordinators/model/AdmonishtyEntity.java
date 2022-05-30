@@ -20,10 +20,11 @@ public class AdmonishtyEntity {
     @NotBlank
     private String Admonish;
 
-    @ManyToOne
+    @ManyToOne // wielu koordynatorów moze dac jedno upomnienie
     private CoordinatorEntity coordinator;
-    @ManyToOne
+    @ManyToOne // wiele upomnien moze posiadac jeden kierowca ( czy moze @OneToMany - jeden kierowca moze mieć wiele upomnien ? )
     private DriverEntity driver;
+
 
 
 }
