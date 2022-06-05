@@ -1,30 +1,33 @@
 package github.com.piotrpucolowski.taxicoordinators.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Drivers")
-@Getter @Setter @ToString
-@NoArgsConstructor @AllArgsConstructor @Builder
-public class DriverEntity {
+@Getter
+@Setter
+@ToString(exclude = {"coordinators"}, callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public class DriverEntity extends BaseEntity {
 
-    @Id
-    private String id;
     @NotBlank
-    private String carPlate; // numer kierowcy
+    private String carPlate;
 
+    @ManyToOne
+    private CoordinatorEntity coordinatorEntities;
 
-    @ManyToOne //wielu kierowców mozę mieć to samo upomnienie
-    //trzeba zmienic na wielu kierowców może mieć wiele upomnien ( @manytoMany?)
-    private AdmonishtyEntity admonishty;
+    @ManyToMany
+    private List<CoordinatorEntity> coordinators;
 
-    @ManyToOne // kierowce może upomnieć wielu koordynatorów
-    private  CoordinatorEntity coordinator;
-
-
-
+    @ManyToMany
+    private List<CategoryEntity> categories = new ArrayList<>();
 
 }

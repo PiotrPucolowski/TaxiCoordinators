@@ -1,29 +1,42 @@
 package github.com.piotrpucolowski.taxicoordinators.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Admonishty")
-@Getter @Setter @ToString
-@NoArgsConstructor @AllArgsConstructor @Builder
-public class AdmonishtyEntity {
-
-    @Id
-    private String id;
+@Getter
+@Setter
+@ToString(exclude = {"Coordinators"}, callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public class AdmonishtyEntity extends BaseEntity{
 
     @NotBlank
-    private String Admonish;
+    private String driver;
 
-    @ManyToOne // wielu koordynatorów moze dac jedno upomnienie
-    private CoordinatorEntity coordinator;
-    @ManyToOne // wiele upomnien moze posiadac jeden kierowca ( czy moze @OneToMany - jeden kierowca moze mieć wiele upomnien ? )
-    private DriverEntity driver;
+    @Positive
+    private String admonish;
+
+    @ManyToOne// wiele upomnien moze byc danych przez jednego koordynatora
+    private CoordinatorEntity mainCoordinator;
+
+    @ManyToMany //wielu koordynatorow moze dac wiele upomnien
+    private List<CoordinatorEntity> coordinators;
+
+    @ManyToMany
+    @Builder.Default
+    private List<CategoryEntity> categories = new ArrayList<>();
+
+
+
 
 
 
