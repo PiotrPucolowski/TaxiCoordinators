@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CoordinatorRepository extends JpaRepository<CoordinatorEntity, Long> {
 
-    //wyszukiwanie wszystkich upomnień przez danego koordynatora, wyszukiwane po numerze koordynatora
-    List<CoordinatorEntity> findAllByAdmonishty_Coordinator(String number);
+    //wyszukiwanie wszystkich upomnień po Imieniu i Nazwisku koordynatora albo po numerze koordynatora
+    List<CoordinatorEntity> findByFirstNameAndLastNameOrNumber(String firstName, String LastName, String number);
 
 }

@@ -19,15 +19,7 @@ import java.util.List;
 public class DriverEntity extends BaseEntity {
 
     @NotBlank
+    @Column(unique = true)
     private String carPlate;
-
-    @ManyToOne
-    private CoordinatorEntity coordinatorEntities;
-
-    @ManyToMany
-    private List<CoordinatorEntity> coordinators;
-
-    @ManyToMany
-    private List<CategoryEntity> categories = new ArrayList<>();
 
 }

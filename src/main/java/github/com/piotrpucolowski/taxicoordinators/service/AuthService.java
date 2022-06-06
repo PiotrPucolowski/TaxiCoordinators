@@ -1,6 +1,5 @@
 package github.com.piotrpucolowski.taxicoordinators.service;
 
-import github.com.piotrpucolowski.taxicoordinators.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
