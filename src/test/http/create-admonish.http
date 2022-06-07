@@ -1,0 +1,21 @@
+# Create new admonish with new coordinator
+POST localhost:8080/create-admonish
+Content-Type: application/x-www-form-urlencoded
+
+admonish=smoke&driver=1000&coordinatorFirstName=Jan&coordinatorLastName=Kowalski&coordinatorNumber=K005
+
+###
+
+# Create new admonish with existing coordinator
+POST localhost:8080/create-admonish
+Content-Type: application/x-www-form-urlencoded
+
+admonish=dirtyCart&coordintorId=1
+
+###
+
+# Explode on non existing coordinator
+POST localhost:8080/create-admonish
+Content-Type: application/x-www-form-urlencoded
+
+admonish=tshir&coordinatorId=2
