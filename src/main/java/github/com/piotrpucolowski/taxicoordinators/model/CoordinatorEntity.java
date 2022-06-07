@@ -29,4 +29,8 @@ public class CoordinatorEntity extends BaseEntity{
     @Size(min = 4, max = 8)
     private String number;
 
+    @NotBlank
+    private String password;
+
+
 }

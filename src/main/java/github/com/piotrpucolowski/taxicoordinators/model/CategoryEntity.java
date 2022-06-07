@@ -24,7 +24,7 @@ public class CategoryEntity extends BaseEntity{
     @Column(unique = true)
     private String name;
 
-    private String description;
+    private String effect;
 
     @ManyToMany(mappedBy = "categories")
     @Builder.Default
