@@ -61,7 +61,7 @@ public class DefaultAdmonishService implements AdmonishService {
                                 .collect(Collectors.toList()))
                         .categories(createAdmonishForm.getCategories().stream()
                                 .map(CategoryItem::getId)
-                                .map(categoryRepository::getById)
+                                .map(categoryRepository::getReferenceById)
                                 .collect(Collectors.toList()))
                         .build());
         }
@@ -69,7 +69,7 @@ public class DefaultAdmonishService implements AdmonishService {
                 if (coordinatorItem.getId() != null) {
                         return CoordinatorRepository.getById(coordinatorItem.getId());
                 }
-                return coordinatorRepository.findByFirstNameAndLastNameOrNumber(coordinatorItem.getFirstName(), coordinatorItem.getLastName(), coordinatorItem.getNumber())
+                return coordinatorRepository.findByNumber( coordinatorItem.getNumber())
                         .orElseGet(() -> coordinatorRepository.save(CoordinatorEntity.builder()
                                 .firstName(coordinatorItem.getFirstName())
                                 .lastName(coordinatorItem.getLastName())
