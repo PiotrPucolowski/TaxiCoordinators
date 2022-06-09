@@ -1,21 +1,24 @@
 <%--
   Created by IntelliJ IDEA.
   User: pucek
-  Date: 07.06.2022
-  Time: 21:13
+  Date: 09.06.2022
+  Time: 12:35
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
-    <title>Coordinar App</title>
+    <title><s:message code="pages.home.title"/></title>
 </head>
 <body>
-<a href="<c:out value="/register"/>">Register</a></br>
-<a href="<c:out value="/login"/>">Login</a></br>
-
+<s:message code="pages.home.welcome"/> <br>
+<a href="/registration"><s:message code="pages.home.registrationLink"/></a> <br>
+<a href="/login"><s:message code="pages.home.loginLink"/></a><br>
+<a href="/admonish/add">Add Admonish</a><br>
+<a href="/admonish/findAll">Show all admonish</a>
 </body>
 </html>
