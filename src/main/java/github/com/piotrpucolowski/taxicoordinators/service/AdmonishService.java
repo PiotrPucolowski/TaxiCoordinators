@@ -1,16 +1,19 @@
 package github.com.piotrpucolowski.taxicoordinators.service;
 
-import github.com.piotrpucolowski.taxicoordinators.controller.mvc.CategoryItem;
-import github.com.piotrpucolowski.taxicoordinators.controller.mvc.CoordinatorItem;
-import github.com.piotrpucolowski.taxicoordinators.controller.mvc.CreateAdmonishForm;
-
+import github.com.piotrpucolowski.taxicoordinators.model.AdmonishEntity;
 import java.util.List;
+import java.util.Optional;
 
 public interface AdmonishService {
 
-    void createAdmonish(CreateAdmonishForm createAdmonishForm);
+    List<AdmonishEntity> findAll();
 
-    List<CoordinatorItem> getAllCoordinators();
+    void addAdmonish(AdmonishEntity admonish);
 
-    List<CategoryItem> getAllCategories();
+    Optional<AdmonishEntity> findById(Long id);
+
+    void deleteById(Long id);
+
+    void update(AdmonishEntity admonish);
 }
+

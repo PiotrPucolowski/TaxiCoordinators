@@ -1,6 +1,8 @@
 package github.com.piotrpucolowski.taxicoordinators.controller.mvc;
 
+import github.com.piotrpucolowski.taxicoordinators.model.AdmonishEntity;
 import github.com.piotrpucolowski.taxicoordinators.service.AdmonishService;
+import github.com.piotrpucolowski.taxicoordinators.service.JpaAdmonishService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,49 +10,39 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("/create-admonish")
+@RequestMapping("/admonish")
 @RequiredArgsConstructor
 public class CreateAdmonishController {
-    private final AdmonishService admonishService;
+    private final JpaAdmonishService jpaAdmonishService;
 
-    @ModelAttribute("categories")
-    public List<CategoryItem> categories(){
-        return admonishService.getAllCategories();
+    @GetMapping("/add")
+    public String showAdmonishAddForm(Model model) {
+        AdmonishEntity admonish = new AdmonishEntity();
+        model.addAttribute("admonish", admonish);
+        return "/admonishCreate.jsp";
     }
 
-    @ModelAttribute("coordinators")
-    public List<CoordinatorItem> coordinators(){
-        return admonishService.getAllCoordinators();
-    }
-
-    @GetMapping
-    public String prepareView(Model model){
-        model.addAttribute("createAdmonishForm", new CreateAdmonishForm());
-        return "/admonish/create";
-    }
-
-    @PostMapping(params = "createAdmonish")
-    public String createAdmonish(@Valid CreateAdmonishForm createAdmonishForm, BindingResult bindingResult){
-        if( bindingResult.hasErrors()){
-            return "admonish/create";
+    @PostMapping("/add")
+    public String add(@ModelAttribute("admonish") @Valid AdmonishEntity admonish, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/admonishCreate.jsp";
         }
-        admonishService.createAdmonish(createAdmonishForm);
-        return "redirect:/admonish-list";
+        jpaAdmonishService.addAdmonish(admonish);
+        return "/afterRegistration.jsp";
     }
 
-    @PostMapping(params = "addCoordinator")
-    public String addCoordinator(@ModelAttribute CreateAdmonishForm createAdmonishForm, CoordinatorItem coordinatorItem){
-        createAdmonishForm.getCoordinators().add(coordinatorItem);
-        return "admonish/create";
-    }
-
-    @PostMapping(params = "removeCoordinator")
-    public String removeAdmonish(@ModelAttribute CreateAdmonishForm createAdmonishForm, @RequestParam int removeCoordinator){
-        createAdmonishForm.getCoordinators().remove(removeCoordinator);
-        return "/admonish/create";
+    @ModelAttribute("powerTrainTypes")
+    public HashMap<String, String> powerTrain() {
+        HashMap<String, String> powerTrainTypes = new HashMap<>();
+        powerTrainTypes.put("awd", "All wheel drive");
+        powerTrainTypes.put("rwd", "Rear wheel drive");
+        powerTrainTypes.put("fwd", "Front wheel drive");
+        return powerTrainTypes;
     }
 
 }
+
